@@ -1,0 +1,58 @@
+body{
+    height: 100vh;
+    background-color: #19B5FE !important;
+    font-family: 'Abel', serif !important;
+}
+
+#mainnavbar{
+    background-color: rgba(0,0,0,0.0);
+    
+}
+
+.linkcolour{
+    color: #003171;
+}
+
+#searchbar{
+    margin:0;
+    padding:0;
+}
+
+.card{
+    background-color: transparent;
+    border-style: none;
+    border-color: black;
+}
+
+.card-body{
+    padding-bottom: 0.5rem;
+    padding-top: 0.5rem;
+}
+
+.collapse{
+}
+
+.btn{
+    border-radius: 0px;
+}
+
+.navbar-toggler{
+    background-color: transparent;
+    border-radius: 0px;
+}
+
+#menu{
+    max-height: 24px;
+    min-height: 24px;
+}
+p{
+    margin-bottom: 0px;
+}
+
+#chevron-down{
+    min-height: 200%;
+}
+
+.location-section, .temperature-section{
+    font-family: 'Orbitron', sans-serif;
+}
