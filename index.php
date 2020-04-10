@@ -270,7 +270,7 @@ if (isset($_POST['savebutton'])){
         var settings = {
             "async": true,
             "crossDomain": true,
-            "url": "https://us1.locationiq.com/v1/search.php?key=30ed2a0f706ead&q=" + search2 + "&format=json", 
+            "url": "https://us1.locationiq.com/v1/search.php?key=&q=" + search2 + "&format=json", 
             "method": "GET"
         }
 
