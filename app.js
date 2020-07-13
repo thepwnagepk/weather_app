@@ -111,5 +111,5 @@ function showPosition(position) {
 
 
 //using the LocationIQ api to geocode responses from search bar
-// key = 30ed2a0f706ead
+// key = 
 // https://eu1.locationiq.com/v1/search.php?key=YOUR_PRIVATE_TOKEN&q=SEARCH_STRING&format=json is the link
