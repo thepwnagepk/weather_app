@@ -40,20 +40,17 @@ window.addEventListener('load', () => {
             }
             else
             {
-                // Replace LOCATIONIQ_API_KEY with (unsurprisingly) your very own api key from LocationIQ
-                // i have removed my own for security reasons (so it doest get hijacked and run up a massive bill in my name) 
-                var settings2 = {
-                  "async": true,
-                  "crossDomain": true,
-                  "url": "https://us1.locationiq.com/v1/reverse.php?key="+ locationiqKey +"&lat=" + lat +"&lon=" + long + "&format=json",
-                  "method": "GET"
-                }
-
-                $.ajax(settings2).done(function (response2) {
-                  console.log(response2);
-                    locationname.textContent = response2.address.city;
-                });
+                //LocationIQ api search string
+                const locationiqAPI = "https://eu1.locationiq.com/v1/reverse.php?key="+ locationiqKey +"&lat=" + lat +"&lon=" + long + "&format=json";
                 
+                fetch(locationiqAPI)
+                .then(response => {
+                    return response.json();
+                })
+                .then(data2 => {
+                console.log(data2);
+                locationname.textContent = data2.address.city;
+                    })
             }
 
 

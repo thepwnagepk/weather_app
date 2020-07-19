@@ -12,3 +12,14 @@ var config = {
 }
 
 And it should work.
+
+#  SQL and Accounts
+
+The SQL in weatherappSQL should be imported after you create the database. In connect.php you can see the database its looking for is 'weatherapp', but you can call it whatever you want and change it there. Then you can import the SQL into that database and the 3 tables should be created
+
+For an Account, there is one set up for you to test the login and favourites, the email is test@gmail.com and the password is 1234, the name of the account is John Doe. You can delete that anytime afterwards. There is no encryption on the database, be warned.
+
+# To-Do
+
+Database Encryption
+CSS Styling: Navbar - Modal - Buttons and banners ("welcome x" and "add to favourites / favourites")

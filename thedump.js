@@ -63,3 +63,39 @@ function showPosition(position) {
                     document.getElementById("latlong").innerHTML = "Latitude: " + lat +
                         "<br>Longitude: " + long;
                 }
+
+// ajax attempt at reverse geocoding
+var settings2 = {
+                  "async": true,
+                  "crossDomain": true,
+                  "url": "https://eu1.locationiq.com/v1/reverse.php?key="+ locationiqKey +"&lat=" + lat +"&lon=" + long + "&format=json",
+                  "method": "GET"
+                }
+
+                $.ajax(settings2).done(function (response2) {
+                  console.log(response2);
+                locationname.textContent = response2.address.city;
+                });
+
+//AJAX attempt at searching via modal 
+var settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": "https://us1.locationiq.com/v1/search.php?key=&q=" + search2 + "&format=json", 
+            "method": "GET"
+        }
+
+        $.ajax(settings).done(function(response) {
+            console.log(response);
+
+            test1 = document.querySelector(".search-response-1");
+
+            for (i = 0; i < response.length; i++) {
+                var locationchange = response[i].display_name.replace(/ /g, "%20");
+                url1 = 'index.php?lat=' + response[i].lat + '&long=' + response[i].lon + '&locationname=' + locationchange + '&saved=true';
+                document.getElementById('search-responses').innerHTML += '<a href=' + url1 + '><li>' + response[i].display_name + '</li></a><hr class="my-1">';
+            }
+
+
+
+        });

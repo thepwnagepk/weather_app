@@ -142,8 +142,8 @@ if (isset($_POST['savebutton'])){
             <hr class="my-2">
         </div>
     </nav>
-    
-    
+
+
     <!-- Welcome Text if user just looged in or registered-->
     <?php if (isset($_SESSION['name'])){ ?>
     <div class="alert-light">
@@ -174,7 +174,7 @@ if (isset($_POST['savebutton'])){
     </div>
 
     <!-- Location Details-->
-    
+
     <div class="location-section text-center mt-4 ">
         <!-- <p id="latlong"></p>
         <h1 class="timezone"> Timezone </h1> -->
@@ -185,12 +185,12 @@ if (isset($_POST['savebutton'])){
     </div>
 
     <!-- Temperature Details-->
-    
+
     <div class="temperature-section text-center mb-4">
         <h1 class="temperature"></h1>
         <h2 class="temperature-description"></h2>
     </div>
-    
+
     <?php
                     if($error == 1){
                         echo "<p>Email is wrong or account does not exist</p>";
@@ -207,13 +207,13 @@ if (isset($_POST['savebutton'])){
     ?>
 
     <form class="form-inline" name="form-save" id="form-save" action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
-        <button class="btn btn-dark btn-block"  id="savebutton" name="savebutton" type="submit">Save Current Location to Favourites</button>
+        <button class="btn btn-dark btn-block" id="savebutton" name="savebutton" type="submit">Save Current Location to Favourites</button>
     </form>
     <?php 
     }}
     ?>
 
-   
+
 
 
     <!-- Search Responses
@@ -256,43 +256,40 @@ if (isset($_POST['savebutton'])){
     <script src="jquery-3.4.0.js"></script>
     <script type='text/javascript' src='config.js'></script>
     <script src="app.js"></script>
-    <script src="skycons.js"></script>    
+    <script src="skycons.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 
     <script>
-        var isSearch = '<?php echo isset($_POST['search'])?>';
+        var isSearch = '<?php echo isset($_POST['search'])?>'; //is the button 'search' POSTing
         var search = '<?php echo isset($_POST['search']) ? $_POST['search'] : ""; ?>'; // is the php the user typed in    
-        console.log(search);
+        console.log("User Search = " + search);
         var search2 = search.replace(/ /g, "%20");
-        console.log(search2);
-//the url in this might be viewable by users which could be a problem since it has the unique key
+        console.log("User Search De-Spaced = " + search2);
+        //LocationIQ API URL
         var settings = {
             "async": true,
             "crossDomain": true,
-            "url": "https://us1.locationiq.com/v1/search.php?key=&q=" + search2 + "&format=json", 
+            "url": "https://eu1.locationiq.com/v1/search.php?key=" + locationiqKey + "&q=" + search2 + "&format=json",
             "method": "GET"
         }
-
+if (isSearch) {
         $.ajax(settings).done(function(response) {
-            console.log(response);
+                    console.log(response);
 
-            test1 = document.querySelector(".search-response-1");
+                    test1 = document.querySelector(".search-response-1");
 
-            for (i = 0; i < response.length; i++) {
-                var locationchange = response[i].display_name.replace(/ /g, "%20");
-                url1 = 'index.php?lat=' + response[i].lat + '&long=' + response[i].lon + '&locationname=' + locationchange + '&saved=true';
-                document.getElementById('search-responses').innerHTML += '<a href=' + url1 + '><li>' + response[i].display_name + '</li></a><hr class="my-1">';
-            }
+                    for (i = 0; i < response.length; i++) {
+                        var locationchange = response[i].display_name.replace(/ /g, "%20");
+                        url1 = 'index.php?lat=' + response[i].lat + '&long=' + response[i].lon + '&locationname=' + locationchange + '&saved=true';
+                        document.getElementById('search-responses').innerHTML += '<a href=' + url1 + '><li>' + response[i].display_name + '</li></a><hr class="my-1">';
+                    }
+                });
 
-
-
-        });
-
-        if (isSearch) {
-            $('#searchResultsModal').modal('show');
-        }
+                
+                    $('#searchResultsModal').modal('show');
+                }
 
     </script>
 </body>
