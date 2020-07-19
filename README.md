@@ -24,3 +24,5 @@ For an Account, there is one set up for you to test the login and favourites, th
 Database Encryption
 
 CSS Styling: Navbar - Modal - Buttons and banners ("welcome x" and "add to favourites / favourites")
+
+Trim down or remove open-iconic
