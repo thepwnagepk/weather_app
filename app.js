@@ -7,8 +7,8 @@ var timezone;
 var locationname = document.querySelector(".locationname");
 var locationsubtitle = document.querySelector(".locationsubtitle");
 //api keys bought in from config.js
-var darkskyKey = config.DarkskyKey;
-var locationiqKey = config.LocationIQKey;
+const darkskyKey = config.DarkskyKey;
+const locationiqKey = config.LocationIQKey;
 
 //when the window loads, ask if it can get location
 // instead of () => i think i can put it all into a function and call that in the load, useful since i might want an if statement which checks wether or not it wants to find the current location or search for a bespoke/remote location.
@@ -61,7 +61,7 @@ window.addEventListener('load', () => {
             const proxy = "https://cors-anywhere.herokuapp.com/";
             //?units=si is an optional api parameter so that it returns the values in different units, and ive set it so SI, the international system of units/metric. it can be recalculated to other
             //As with above, change YOUR_DARKSKY_API_KEY to your own actual key from Dark Sky
-            const api = `${proxy}https://api.darksky.net/forecast/darkskyKey/${lat},${long}?units=si`
+            const api = `${proxy}https://api.darksky.net/forecast/${darkskyKey}/${lat},${long}?units=si`
 
             fetch(api)
                 .then(response => {
