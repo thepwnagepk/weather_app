@@ -108,7 +108,7 @@ if (isset($_POST['savebutton'])){
 
 <body>
     <!-- Main Top Navbar-->
-    <nav id="mainnavbar" class="navbar navbar-expand-md">
+    <nav id="mainnavbar" class="navbar navbar-expand-md my-3">
         <a class="navbar-brand linkcolour" href="index.php">PK's Weather</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <img src="menu.svg" alt="menu" id="menu">
@@ -116,23 +116,33 @@ if (isset($_POST['savebutton'])){
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
             <div id="searchbar" class="container">
-                <a id="getmylocation" class="btn btn-outline-dark mt-1" role="button" href="index.php">Find my Location!</a>
-                <form class="form-inline" action="index.php?modal=true" method="post">
-                    <input class="form-control" type="search" id="search" name="search" placeholder="Search for your town/city here" aria-label="Search" required>
-                    <button id="locationsearch" class="btn btn-outline-dark" type="submit">Search</button>
-                </form>
+                <div class="row">
+                    <div class="col-sm-3 col-12">
+
+                        <a id="getmylocation" class="btn btn-outline-dark  btn-block" role="button" href="index.php">Find my Location!</a></div>
+                    <div class="col-sm-9 col-12">
+                        <form class="form-inline w-100" action="index.php?modal=true" method="post">
+
+
+                            <input class="form-control d-block" type="search" id="search" name="search" placeholder="Search for your town/city here" aria-label="Search" required>
+
+
+                            <button id="locationsearch" class="btn btn-outline-dark" type="submit">Search</button>
+
+
+                        </form>
+                    </div>
+                </div>
             </div>
             <hr class="my-2">
             <!-- Welcome Text in dropdown - changed to logged in text-->
-            <?php if (isset($_SESSION['name'])) { ?>
-            <div class="alert-warning">
-                <p class="nav-link text-center">Logged in as: <?php echo $_SESSION['name']?>
-                </p>
-            </div>
-            <?php } ?>
+
             <!-- Login/Register/Logout Buttons-->
             <?php if (isset($_SESSION['name'])) { ?>
-            <a class="btn btn-danger btn-block " href="logout.php">Logout</a>
+            <div class="btn-group btn-block " role="group" aria-label="Basic example">
+                <a class="btn btn-light">Logged in as: <?php echo $_SESSION['name']?></a>
+                <button class="btn btn-danger" onclick="window.location.href='logout.php';">Logout</button>
+            </div>
             <?php }else{?>
             <div class="btn-group btn-block " role="group" aria-label="Basic example">
                 <button class="btn btn-success" onclick="window.location.href='login.php';">Login</button>
@@ -143,23 +153,28 @@ if (isset($_POST['savebutton'])){
         </div>
     </nav>
 
+    <!-- Encapsulating container on everything that isnt the navbar-->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-sm-12 col-md-6 justify-content-center">
 
-    <!-- Welcome Text if user just looged in or registered-->
-    <?php if (isset($_SESSION['name'])){ ?>
-    <div class="alert-light">
-        <p class="nav-link text-center">Welcome, <?php echo $_SESSION['name']?>
-        </p>
-    </div>
-    <?php } ?>
+                <!-- Welcome Text if user just logged in or registered-->
+                <?php if (isset($_GET['loggedin'])){ ?>
+                <div class="alert-light">
+                    <p class="nav-link text-center">Welcome, <?php echo $_SESSION['name']?>
+                    </p>
+                </div>
+                <?php } ?>
 
-    <!-- Favourite Menu Collapse-->
-    <?php if (isset($_SESSION['name'])) { ?>
-    <button class="btn btn-block btn-success" type="button" data-toggle="collapse" data-target="#favourites" aria-expanded="false" aria-controls="favourites"><?php echo $_SESSION['name']?>'s Favourites <img src="chevron-bottom.svg" alt="chevron-down" id="chevron-down"></button>
-    <?php } ?>
+                <!-- Favourite Menu Collapse-->
+                <?php if (isset($_SESSION['name'])) { ?>
+                <button class="btn btn-block btn-success" type="button" data-toggle="collapse" data-target="#favourites" aria-expanded="false" aria-controls="favourites"><?php echo $_SESSION['name']?>'s Favourites <img src="chevron-bottom.svg" alt="chevron-down" id="chevron-down"></button>
+                <?php } ?>
 
-    <div class="collapse border" id="favourites">
+                <div class="collapse border" id="favourites">
 
-        <?php
+                    <?php
             $userID = $_SESSION['userID'];
             $sqlquery3 = "SELECT * FROM location, favourites WHERE location.locationID = favourites.locationID AND favourites.userID = '$userID'";
             $result2 = $conn ->query($sqlquery3);
@@ -171,27 +186,26 @@ if (isset($_POST['savebutton'])){
             }
     ?>
 
-    </div>
+                </div>
 
-    <!-- Location Details-->
+                <!-- Location Details-->
 
-    <div class="location-section text-center mt-4 ">
-        <!-- <p id="latlong"></p>
+                <div class="location-section text-center mt-4 ">
+                    <!-- <p id="latlong"></p>
         <h1 class="timezone"> Timezone </h1> -->
-        <h1 class="locationname"> Location </h1>
-        <h4 class="locationsubtitle">
-            </h1>
-            <canvas class="icon" width="128" height="128"></canvas>
-    </div>
+                    <h1 class="locationname"> Location </h1>
+                    <h4 class="locationsubtitle"></h4>
+                    <canvas class="icon" width="128" height="128"></canvas>
+                </div>
 
-    <!-- Temperature Details-->
+                <!-- Temperature Details-->
 
-    <div class="temperature-section text-center mb-4">
-        <h1 class="temperature"></h1>
-        <h2 class="temperature-description"></h2>
-    </div>
+                <div class="temperature-section text-center mb-4">
+                    <h1 class="temperature"></h1>
+                    <h2 class="temperature-description"></h2>
+                </div>
 
-    <?php
+                <?php
                     if($error == 1){
                         echo "<p>Email is wrong or account does not exist</p>";
                     }
@@ -200,18 +214,22 @@ if (isset($_POST['savebutton'])){
                     }
                   
     ?>
-    <!-- Save Button-->
-    <?php 
+                <!-- Save Button-->
+                <?php 
     if(!empty($_SERVER['QUERY_STRING'])){ 
         if($error != 2){
     ?>
 
-    <form class="form-inline" name="form-save" id="form-save" action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
-        <button class="btn btn-dark btn-block" id="savebutton" name="savebutton" type="submit">Save Current Location to Favourites</button>
-    </form>
-    <?php 
+                <form class="form-inline" name="form-save" id="form-save" action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
+                    <button class="btn btn-dark btn-block" id="savebutton" name="savebutton" type="submit">Save Current Location to Favourites</button>
+                </form>
+                <?php 
     }}
     ?>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+    </div>
 
 
 
@@ -274,22 +292,22 @@ if (isset($_POST['savebutton'])){
             "url": "https://eu1.locationiq.com/v1/search.php?key=" + locationiqKey + "&q=" + search2 + "&format=json",
             "method": "GET"
         }
-if (isSearch) {
-        $.ajax(settings).done(function(response) {
-                    console.log(response);
+        if (isSearch) {
+            $.ajax(settings).done(function(response) {
+                console.log(response);
 
-                    test1 = document.querySelector(".search-response-1");
+                test1 = document.querySelector(".search-response-1");
 
-                    for (i = 0; i < response.length; i++) {
-                        var locationchange = response[i].display_name.replace(/ /g, "%20");
-                        url1 = 'index.php?lat=' + response[i].lat + '&long=' + response[i].lon + '&locationname=' + locationchange + '&saved=true';
-                        document.getElementById('search-responses').innerHTML += '<a href=' + url1 + '><li>' + response[i].display_name + '</li></a><hr class="my-1">';
-                    }
-                });
-
-                
-                    $('#searchResultsModal').modal('show');
+                for (i = 0; i < response.length; i++) {
+                    var locationchange = response[i].display_name.replace(/ /g, "%20");
+                    url1 = 'index.php?lat=' + response[i].lat + '&long=' + response[i].lon + '&locationname=' + locationchange + '&saved=true';
+                    document.getElementById('search-responses').innerHTML += '<a href=' + url1 + '><li>' + response[i].display_name + '</li></a><hr class="my-1">';
                 }
+            });
+
+
+            $('#searchResultsModal').modal('show');
+        }
 
     </script>
 </body>
