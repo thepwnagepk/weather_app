@@ -23,6 +23,10 @@ For an Account, there is one set up for you to test the login and favourites, th
 
 Database Encryption
 
-CSS Styling: Navbar - Modal - Buttons and banners ("welcome x" and "add to favourites / favourites")
+CSS Styling: Modal -
+
+Add Delete button to favourites, and make it scrollable
 
 Trim down or remove open-iconic
+
+Bonus: collapsing map button to make use of LocationIQ's map feature
