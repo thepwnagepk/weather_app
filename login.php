@@ -19,10 +19,10 @@ $sqlquery = "SELECT * FROM users WHERE email = '$email'";
     $userdetails = $result->fetch_array(MYSQLI_NUM);
         
         if(isset($userdetails)){
-            
-            if($userdetails[3] == $pass){
+            //$userdetails[3] == $pass
+            if(password_verify($pass, $userdetails[3])){
                 $_SESSION['name'] = $userdetails[2];
-                $_SESSION['email'] = $userdetails[1];
+                
                 $_SESSION['userID'] = $userdetails[0];
                 header('location: index.php?loggedin=1');
                 

@@ -77,7 +77,7 @@ if (isset($_POST['savebutton'])){
     $result3 = $conn ->query($sqlquery4);
     }
     
-    
+
 
 }
 
@@ -160,7 +160,7 @@ if (isset($_POST['savebutton'])){
             <div class="col-sm-12 col-md-6 justify-content-center">
 
                 <!-- Welcome Text if user just logged in or registered-->
-                <?php if (isset($_GET['loggedin'])){ ?>
+                <?php if (isset($_GET['loggedin']) || isset($_GET['registered'])){ ?>
                 <div class="alert-light">
                     <p class="nav-link text-center">Welcome, <?php echo $_SESSION['name']?>
                     </p>

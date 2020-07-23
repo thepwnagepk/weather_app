@@ -9,30 +9,36 @@ if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST'){
     $name = isset($_POST['name']) ? $_POST['name'] : "";
     $upass = isset($_POST['upass']) ? $_POST['upass'] : "";
     $upass2 = isset($_POST['upass2']) ? $_POST['upass2'] : "";
-    
+    //Clear any escape or unwanted characters from the inputs
     $email = $conn->real_escape_string($email);
     $name = $conn->real_escape_string($name);
     $upass = $conn->real_escape_string($upass);
     $upass2 = $conn->real_escape_string($upass2);
+    // hash inputs with bcrypt
+    $upasshashed = password_hash($upass, PASSWORD_DEFAULT);
+    
+    
     
     if($upass == $upass2){
         
-        $sqlquery = "INSERT INTO users (email, name, password) VALUES ('$email', '$name', '$upass')";        
+        $sqlquery = "INSERT INTO users (email, name, password) VALUES ('$email', '$name', '$upasshashed')";        
         $sqlquery2 = "SELECT email FROM users WHERE email = '$email'";
-        
-        $result = $conn ->query($sqlquery2);
+        $sqlquery3 = "SELECT userID FROM users WHERE email = '$email'";
+        $result = $conn ->query($sqlquery2); //run SQL which checks if email has already been registered
         //$data = $result->fetch_array(MYSQLI_NUM);
         //if(!isset($data))
         //mysqli_num_rows($result) == 0
         
         
-            if(mysqli_num_rows($result) == 0){
+            if(mysqli_num_rows($result) == 0){ //if the email isnt in DB
                 
                     if (isset($conn)){
-                        $result = $conn->query($sqlquery);
-                        $conn->close();
+                        $result = $conn->query($sqlquery); //add user to DB                       
                         $_SESSION['name'] = $name;
-                        $_SESSION['email'] = $email;
+                        $result2 = $conn ->query($sqlquery3);
+                        $userdetails = $result2->fetch_array(MYSQLI_NUM);
+                        $_SESSION['userID'] = $userdetails[0];
+                        $conn->close();
                         header('location: index.php?registered=1');
                     }
                 
